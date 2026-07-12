@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sruthi T K — Front-End Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12141c;
+    --ink-2:#1b1e29;
+    --ink-3:#242836;
+    --bone:#f1ece1;
+    --bone-2:#e8e1d2;
+    --brass:#b68a4e;
+    --brass-light:#d9b77f;
+    --slate:#9ca3b5;
+    --ink-text:#23262f;
+    --hairline:rgba(214,196,163,0.18);
+    --hairline-bone:rgba(35,38,47,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{background:var(--brass);color:var(--ink);}
+
+  a{color:inherit;text-decoration:none;}
+
+  img{max-width:100%;display:block;}
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.06em;
+    color:var(--brass-light);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+
+  .eyebrow::before{
+    content:"";
+    width:22px;
+    height:1px;
+    background:var(--brass);
+    display:inline-block;
+  }
+
+  .eyebrow.on-bone{color:var(--brass);}
+
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(18,20,28,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:'Fraunces',serif;
+    font-size:19px;
+    letter-spacing:0.01em;
+  }
+  .nav-mark span{color:var(--brass-light);}
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--slate);
+  }
+  .nav-links a{transition:color .2s ease;}
+  .nav-links a:hover, .nav-links a:focus-visible{color:var(--brass-light);}
+  .nav-cta{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    border:1px solid var(--brass);
+    color:var(--brass-light);
+    padding:8px 14px;
+    border-radius:2px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .nav-cta:hover, .nav-cta:focus-visible{background:var(--brass);color:var(--ink);}
+
+  @media (max-width:720px){
+    .nav-links{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:120px 0 100px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-200px;
+    right:-160px;
+    width:520px;
+    height:520px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(182,138,78,0.16), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    color:var(--brass-light);
+    margin-bottom:26px;
+  }
+  .hero h1{
+    font-size:clamp(42px,7vw,78px);
+    line-height:1.02;
+    max-width:780px;
+    font-weight:400;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--brass-light);
+    font-weight:400;
+  }
+  .hero-sub{
+    margin-top:28px;
+    max-width:560px;
+    font-size:17px;
+    color:var(--slate);
+    font-weight:400;
+  }
+  .hero-meta{
+    margin-top:44px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    align-items:center;
+  }
+  .btn{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    letter-spacing:0.02em;
+    padding:13px 22px;
+    border-radius:2px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:all .2s ease;
+  }
+  .btn-primary{
+    background:var(--brass);
+    color:var(--ink);
+  }
+  .btn-primary:hover, .btn-primary:focus-visible{background:var(--brass-light);}
+  .btn-ghost{
+    border:1px solid var(--hairline);
+    color:var(--bone);
+  }
+  .btn-ghost:hover, .btn-ghost:focus-visible{border-color:var(--brass);color:var(--brass-light);}
+  .hero-loc{
+    margin-top:36px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--slate);
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:#7fbf8a;
+    box-shadow:0 0 0 3px rgba(127,191,138,0.15);
+  }
+
+  /* ---------- Section shell ---------- */
+  section{padding:96px 0;}
+  .section-head{margin-bottom:56px;}
+  .section-title{
+    font-size:clamp(30px,4vw,42px);
+    font-weight:400;
+  }
+  .rule{
+    height:1px;
+    background:var(--hairline);
+    border:none;
+  }
+  .on-bone .rule{background:var(--hairline-bone);}
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:64px;
+    align-items:start;
+  }
+  .about-text p{
+    font-size:18px;
+    color:#d9d4c8;
+    max-width:560px;
+  }
+  .about-text p + p{margin-top:18px;}
+  .about-facts{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--slate);
+    border-left:1px solid var(--hairline);
+    padding-left:24px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .about-facts strong{
+    display:block;
+    color:var(--bone);
+    font-size:14px;
+    font-weight:500;
+    margin-bottom:3px;
+  }
+  @media (max-width:800px){
+    .about-grid{grid-template-columns:1fr;}
+    .about-facts{border-left:none;border-top:1px solid var(--hairline);padding-left:0;padding-top:24px;}
+  }
+
+  /* ---------- Experience ---------- */
+  .timeline{border-top:1px solid var(--hairline);}
+  .tl-item{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:40px;
+    padding:38px 0;
+    border-bottom:1px solid var(--hairline);
+  }
+  .tl-year{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--brass-light);
+    padding-top:4px;
+  }
+  .tl-role{
+    font-family:'Fraunces',serif;
+    font-size:23px;
+    font-weight:500;
+  }
+  .tl-company{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--slate);
+    margin-top:6px;
+    margin-bottom:18px;
+  }
+  .tl-list{list-style:none;display:flex;flex-direction:column;gap:10px;max-width:640px;}
+  .tl-list li{
+    font-size:15px;
+    color:#c8c2b5;
+    padding-left:18px;
+    position:relative;
+  }
+  .tl-list li::before{
+    content:"—";
+    position:absolute;
+    left:0;
+    color:var(--brass);
+  }
+  @media (max-width:680px){
+    .tl-item{grid-template-columns:1fr;gap:10px;}
+  }
+
+  /* ---------- Work (on bone) ---------- */
+  .on-bone{
+    background:var(--bone);
+    color:var(--ink-text);
+  }
+  .on-bone .section-title{color:var(--ink-text);}
+  .work-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  @media (max-width:760px){.work-grid{grid-template-columns:1fr;}}
+
+  .card{
+    background:#faf8f2;
+    border:1px solid var(--hairline-bone);
+    border-radius:4px;
+    overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 18px 34px rgba(35,38,47,0.1);
+  }
+  .card-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 14px;
+    background:#efe9db;
+    border-bottom:1px solid var(--hairline-bone);
+  }
+  .card-dots{display:flex;gap:5px;}
+  .card-dots span{width:8px;height:8px;border-radius:50%;background:#d7cbb0;}
+  .card-url{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:#8a7f68;
+    margin-left:8px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .card-body{padding:26px 24px 28px;}
+  .card-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:var(--brass);
+    text-transform:uppercase;
+  }
+  .card-title{
+    font-family:'Fraunces',serif;
+    font-size:22px;
+    font-weight:500;
+    margin-top:8px;
+    margin-bottom:12px;
+  }
+  .card-body p{font-size:14.5px;color:#54503f;}
+  .card-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:18px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:var(--ink-text);
+    border-bottom:1px solid var(--ink-text);
+    padding-bottom:2px;
+  }
+  .card-link:hover, .card-link:focus-visible{color:var(--brass);border-color:var(--brass);}
+
+  /* ---------- Capabilities ---------- */
+  .cap-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:44px 60px;
+  }
+  @media (max-width:680px){.cap-grid{grid-template-columns:1fr;}}
+  .cap-group h3{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--brass-light);
+    font-weight:500;
+    margin-bottom:16px;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:9px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    color:#d9d4c8;
+    border:1px solid var(--hairline);
+    padding:7px 12px;
+    border-radius:2px;
+  }
+
+  /* ---------- Numbers ---------- */
+  .num-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--hairline);
+    border-left:1px solid var(--hairline);
+  }
+  .num-cell{
+    padding:34px 26px;
+    border-right:1px solid var(--hairline);
+    border-bottom:1px solid var(--hairline);
+  }
+  .num-cell .num{
+    font-family:'Fraunces',serif;
+    font-size:44px;
+    color:var(--brass-light);
+    font-weight:500;
+  }
+  .num-cell .label{
+    margin-top:8px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--slate);
+  }
+  @media (max-width:760px){.num-grid{grid-template-columns:1fr 1fr;}}
+
+  /* ---------- Background (education) ---------- */
+  .bg-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+  }
+  @media (max-width:760px){.bg-grid{grid-template-columns:1fr;}}
+  .bg-col h3{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-bottom:20px;
+  }
+  .bg-entry{padding:16px 0;border-bottom:1px solid var(--hairline-bone);}
+  .bg-entry:last-child{border-bottom:none;}
+  .bg-entry .t{font-family:'Fraunces',serif;font-size:17.5px;font-weight:500;}
+  .bg-entry .s{font-family:'JetBrains Mono',monospace;font-size:12px;color:#7a7458;margin-top:5px;}
+
+  /* ---------- Footer / Contact ---------- */
+  footer{
+    background:var(--ink-2);
+    padding:90px 0 40px;
+    border-top:1px solid var(--hairline);
+  }
+  .contact-title{
+    font-size:clamp(32px,5vw,52px);
+    max-width:640px;
+    font-weight:400;
+  }
+  .contact-title em{font-style:italic;color:var(--brass-light);}
+  .contact-row{
+    margin-top:48px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+  }
+  @media (max-width:760px){.contact-row{grid-template-columns:1fr;}}
+  .contact-item .k{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--slate);
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .contact-item .v{font-size:16px;}
+  .contact-item a.v:hover, .contact-item a.v:focus-visible{color:var(--brass-light);}
+  .foot-bottom{
+    margin-top:72px;
+    padding-top:26px;
+    border-top:1px solid var(--hairline);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--slate);
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  :focus-visible{outline:2px solid var(--brass-light);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">Sruthi <span>T K</span></div>
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="mailto:sruthitk22@gmail.com">Say hello</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-tag">FRONT-END DEVELOPER — REACT.JS / NEXT.JS</div>
+    <h1>Interfaces built with <em>care</em>,<br>shipped with confidence.</h1>
+    <p class="hero-sub">Three and a half years turning client requirements into fast, responsive products — from ERP systems to e-commerce platforms — carried through design, build, deployment, and the quiet work of keeping a site running well.</p>
+    <div class="hero-meta">
+      <a class="btn btn-primary" href="mailto:sruthitk22@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/sruthi-tk-391801196/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="tel:+971502122093">+971 50 212 2093</a>
+    </div>
+    <div class="hero-loc"><span class="dot"></span> Nuaimiya, Ajman, UAE — available immediately</div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">&lt;About /&gt;</div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I build with React and Next.js as home ground, but I carry a working fluency across the MERN stack — enough to speak the same language as the engineers behind an API, and to see a project through from the first component to a live production server.</p>
+        <p>Over the past three and a half years I've built ERP tools, corporate websites, and e-commerce platforms, and stayed close to each one through deployment, hosting, and performance tuning — not just handing off a design and moving on.</p>
+      </div>
+      <div class="about-facts reveal">
+        <div><strong>Based in</strong>Ajman, UAE — UAE Resident</div>
+        <div><strong>Focus</strong>React.js, Next.js, JavaScript (ES6+), SSR, API integration</div>
+        <div><strong>Also comfortable in</strong>Node.js, Express, MongoDB, Laravel front-end integration</div>
+        <div><strong>Languages</strong>English, Malayalam, Hindi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">&lt;Experience /&gt;</div>
+      <h2 class="section-title">Where the work happened.</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-year">2024 — 2026</div>
+        <div>
+          <div class="tl-role">Front-End Developer</div>
+          <div class="tl-company">SPANIXO · CALICUT, INDIA</div>
+          <ul class="tl-list">
+            <li>Built scalable applications in React.js and Next.js, using server-side rendering to sharpen performance and search visibility.</li>
+            <li>Owned deployment and hosting end to end on Digital Ocean — server configuration, domains, and security included.</li>
+            <li>Worked directly with clients to translate requirements into technical recommendations and shipped features.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2023 — 2024</div>
+        <div>
+          <div class="tl-role">Front-End Developer</div>
+          <div class="tl-company">LOUD CHILLI TECHNOLOGIES · CALICUT, INDIA</div>
+          <ul class="tl-list">
+            <li>Delivered 8+ responsive business and commercial websites with HTML5, CSS3, Bootstrap, and jQuery.</li>
+            <li>Partnered with backend developers to connect front-end applications to APIs and server-side systems.</li>
+            <li>Lifted website performance by 30% through asset compression and front-end optimization.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2022 — 2023</div>
+        <div>
+          <div class="tl-role">Front-End Developer</div>
+          <div class="tl-company">SYSBREEZE TECHNOLOGIES · MALAPPURAM, INDIA</div>
+          <ul class="tl-list">
+            <li>Engineered front-end modules for ERP applications and e-commerce platforms.</li>
+            <li>Served as the dedicated front-end resource on Laravel-based projects, integrating UI with backend systems.</li>
+            <li>Managed hosting and deployment through cPanel across multiple concurrent client projects.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="on-bone">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow on-bone">&lt;Selected Work /&gt;</div>
+      <h2 class="section-title">Four builds, four different problems.</h2>
+    </div>
+    <div class="work-grid">
+
+      <div class="card reveal">
+        <div class="card-bar">
+          <div class="card-dots"><span></span><span></span><span></span></div>
+          <div class="card-url">galaxy-builders.com</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Business Website</div>
+          <div class="card-title">Galaxy Builders</div>
+          <p>A responsive multi-page site for a construction business, with custom jQuery sliders, form validation, and navigation tuned for lead generation.</p>
+          <a class="card-link" href="https://www.galaxy-builders.com/" target="_blank" rel="noopener">Visit site ↗</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-bar">
+          <div class="card-dots"><span></span><span></span><span></span></div>
+          <div class="card-url">itcityonlinestore.com</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">E-Commerce Platform</div>
+          <div class="card-title">IT City Online Store</div>
+          <p>Product filtering, image galleries, and checkout-ready interfaces, with responsive listings, cart, and account pages built for daily retail traffic.</p>
+          <a class="card-link" href="https://itcityonlinestore.com/" target="_blank" rel="noopener">Visit site ↗</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-bar">
+          <div class="card-dots"><span></span><span></span><span></span></div>
+          <div class="card-url">sushasfoodproducts.com</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">E-Commerce &amp; Brand Portal</div>
+          <div class="card-title">Susha's Food Products</div>
+          <p>A React.js site for an organic food brand — product showcases, customer inquiry flows, and state management tuned for a smoother, faster feel.</p>
+          <a class="card-link" href="https://sushasfoodproducts.com/" target="_blank" rel="noopener">Visit site ↗</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-bar">
+          <div class="card-dots"><span></span><span></span><span></span></div>
+          <div class="card-url">ablegroupdevelopers.com</div>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">Corporate Website</div>
+          <div class="card-title">Able Group Developers</div>
+          <p>A modern corporate site in Next.js and React.js with server-side rendering, reusable components, and Digital Ocean deployment start to finish.</p>
+          <a class="card-link" href="https://ablegroupdevelopers.com/" target="_blank" rel="noopener">Visit site ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="capabilities">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">&lt;Capabilities /&gt;</div>
+      <h2 class="section-title">The toolkit, plainly stated.</h2>
+    </div>
+    <div class="cap-grid reveal">
+      <div class="cap-group">
+        <h3>Languages</h3>
+        <div class="chips">
+          <span class="chip">JavaScript (ES6+)</span>
+          <span class="chip">HTML5</span>
+          <span class="chip">CSS3</span>
+          <span class="chip">Basic Node.js</span>
+          <span class="chip">Basic PHP</span>
+        </div>
+      </div>
+      <div class="cap-group">
+        <h3>Frameworks &amp; Libraries</h3>
+        <div class="chips">
+          <span class="chip">React.js</span>
+          <span class="chip">Next.js</span>
+          <span class="chip">jQuery</span>
+          <span class="chip">Bootstrap</span>
+          <span class="chip">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="cap-group">
+        <h3>Backend &amp; Integration</h3>
+        <div class="chips">
+          <span class="chip">REST APIs</span>
+          <span class="chip">Laravel Integration</span>
+          <span class="chip">Blade Templates</span>
+          <span class="chip">Node.js / Express</span>
+          <span class="chip">MongoDB</span>
+        </div>
+      </div>
+      <div class="cap-group">
+        <h3>Tools &amp; Platforms</h3>
+        <div class="chips">
+          <span class="chip">Git / GitHub</span>
+          <span class="chip">npm</span>
+          <span class="chip">Vite</span>
+          <span class="chip">Webpack</span>
+          <span class="chip">Figma</span>
+          <span class="chip">cPanel</span>
+          <span class="chip">Digital Ocean</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="eyebrow">&lt;In Numbers /&gt;</div>
+    <div class="num-grid">
+      <div class="num-cell">
+        <div class="num">3.5+</div>
+        <div class="label">Years of experience</div>
+      </div>
+      <div class="num-cell">
+        <div class="num">15+</div>
+        <div class="label">Client projects delivered</div>
+      </div>
+      <div class="num-cell">
+        <div class="num">100%</div>
+        <div class="label">On-time completion record</div>
+      </div>
+      <div class="num-cell">
+        <div class="num">30%</div>
+        <div class="label">Faster load times, one case</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="on-bone">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow on-bone">&lt;Background /&gt;</div>
+      <h2 class="section-title">Education &amp; certifications.</h2>
+    </div>
+    <div class="bg-grid reveal">
+      <div class="bg-col">
+        <h3>Education</h3>
+        <div class="bg-entry">
+          <div class="t">Associate Membership of The Institution of Engineers (India)</div>
+          <div class="s">Equivalent to B.Tech, Computer Science — Section A passed, 2016</div>
+        </div>
+        <div class="bg-entry">
+          <div class="t">Diploma in Computer Science</div>
+          <div class="s">Seethi Sahib Memorial Polytechnic College, Tirur — 2014</div>
+        </div>
+        <div class="bg-entry">
+          <div class="t">Higher Secondary Education, Science</div>
+          <div class="s">DGHSS, Tanur — 2011</div>
+        </div>
+      </div>
+      <div class="bg-col">
+        <h3>Certifications</h3>
+        <div class="bg-entry">
+          <div class="t">MERN Stack Developer Course</div>
+          <div class="s">Futura Labs — 2023</div>
+        </div>
+        <div class="bg-entry">
+          <div class="t">Web Design Certification</div>
+          <div class="s">Sysbreeze Technologies — 2019</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow reveal">&lt;Contact /&gt;</div>
+    <h2 class="contact-title reveal">Open to new roles — <em>let's talk</em>.</h2>
+    <div class="contact-row reveal">
+      <div class="contact-item">
+        <div class="k">Email</div>
+        <a class="v" href="mailto:sruthitk22@gmail.com">sruthitk22@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <div class="k">Phone</div>
+        <a class="v" href="tel:+971502122093">+971 50 212 2093</a>
+      </div>
+      <div class="contact-item">
+        <div class="k">LinkedIn</div>
+        <a class="v" href="https://www.linkedin.com/in/sruthi-tk-391801196/" target="_blank" rel="noopener">sruthi-tk-391801196</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>Nuaimiya, Ajman, UAE · Available immediately · UAE Resident</div>
+      <div>Sruthi T K</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
